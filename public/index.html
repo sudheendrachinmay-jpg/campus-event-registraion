@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Event Registration & Login System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- 1. LANDING NAVIGATION BAR -->
+    <nav class="landing-nav">
+        <div class="logo-container">
+            <!-- Sleek Event Logo -->
+            <svg width="32" height="32" viewBox="0 0 32 32">
+                <defs>
+                    <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="hsl(265, 85%, 60%)" />
+                        <stop offset="100%" stop-color="hsl(180, 85%, 50%)" />
+                    </linearGradient>
+                </defs>
+                <rect x="4" y="4" width="24" height="24" rx="6" fill="url(#logo-grad)" opacity="0.15" stroke="url(#logo-grad)" stroke-width="1.5"/>
+                <path d="M12 20V12L16 15L20 12V20" stroke="url(#logo-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="gradient-text">Campus Events</span>
+        </div>
+        <div id="nav-actions">
+            <a href="auth.html" class="btn btn-outline" style="padding: 8px 16px;">Sign In</a>
+            <a href="auth.html?mode=register" class="btn btn-primary" style="padding: 8px 16px; margin-left: 10px;">Register</a>
+        </div>
+    </nav>
+
+    <!-- 2. HERO HIGHLIGHT SECTION -->
+    <header class="landing-hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="status-dot success"></span>
+                <span>University Event Registration System</span>
+            </div>
+            <h1>
+                Connect. Participate.<br>
+                <span class="gradient-text">Experience Campus Life.</span>
+            </h1>
+            <p>
+                A modern campus portal for university students and organizers. Register for events, track schedules, secure your seats, and manage campus activities in real-time.
+            </p>
+            <div class="hero-actions">
+                <a href="auth.html" id="hero-primary-btn" class="btn btn-primary">Get Started Now</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="card-stack">
+                <div class="stacked-card c3"></div>
+                <div class="stacked-card c2">
+                    <span class="badge badge-sports">Sports</span>
+                    <h3 style="margin-top: 15px;">Sports Stadium Complex</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">
+                        Annual Athletic Meet. Track & field events are opening.
+                    </p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 15px; margin-top: 20px;">
+                        <span style="font-size: 0.75rem; color: var(--success);">● Active</span>
+                        <span style="font-size: 0.75rem; font-weight: 600;">Seats: 40</span>
+                    </div>
+                </div>
+                <div class="stacked-card c1">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="badge badge-tech">Technical</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">ID: #001</span>
+                    </div>
+                    <h3 style="margin-top: 15px; font-weight: 700;">HackFest</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+                        Join the 24-hour coding sprint. Build solutions using AI, Web, and Blockchain.
+                    </p>
+                    <div style="margin-top: 15px; font-size: 0.8rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px;">
+                        <div>📅 June 15, 2026</div>
+                        <div>📍 Main CS Seminar Hall</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 15px; margin-top: 20px;">
+                        <span style="font-size: 0.75rem; font-weight: 600; color: var(--secondary-light);">3 Registered</span>
+                        <span style="font-size: 0.75rem; font-weight: 600;">Capacity: 5/5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. PORTAL STATISTICS -->
+    <section class="landing-stats glass-panel">
+        <div class="stat-item">
+            <div class="stat-num" id="stat-students">50+</div>
+            <div class="stat-label">Students Registered</div>
+        </div>
+        <div class="stat-item" style="border-left: 1px solid var(--border-glass); border-right: 1px solid var(--border-glass);">
+            <div class="stat-num" id="stat-events">5</div>
+            <div class="stat-label">Campus Programs Live</div>
+        </div>
+        <div class="stat-item" style="border-right: 1px solid var(--border-glass);">
+            <div class="stat-num" id="stat-regs">12</div>
+            <div class="stat-label">Successful Enrollments</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Instant Seat Confirmation</div>
+        </div>
+    </section>
+
+    <!-- 4. KEY PORTAL FEATURE TILES -->
+    <main style="max-width: 1400px; margin: 40px auto 100px auto; padding: 0 5%;">
+        <h2 style="font-size: 2.2rem; text-align: center; margin-bottom: 50px;">
+            A Fully Coordinated <span class="gradient-text">Campus Experience</span>
+        </h2>
+        <div class="events-display-grid">
+            <div class="glass-panel" style="padding: 30px; display: flex; flex-direction: column; gap: 15px;">
+                <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(138, 43, 226, 0.15); display: flex; align-items: center; justify-content: center; color: var(--primary-light);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <h3>Secure Portal Accounts</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Isolated logins for students and coordinators, featuring encrypted security credentials and cookie-backed active sessions.
+                </p>
+            </div>
+
+            <div class="glass-panel" style="padding: 30px; display: flex; flex-direction: column; gap: 15px;">
+                <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 206, 209, 0.15); display: flex; align-items: center; justify-content: center; color: var(--secondary-light);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </div>
+                <h3>Real-Time Registrations</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Sign up for hackathons, sports, or seminars instantly. The system dynamically updates seat availabilities and prevents over-booking.
+                </p>
+            </div>
+
+            <div class="glass-panel" style="padding: 30px; display: flex; flex-direction: column; gap: 15px;">
+                <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(34, 197, 94, 0.15); display: flex; align-items: center; justify-content: center; color: var(--success);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="12" x2="2" y2="12"></line><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg>
+                </div>
+                <h3>Event Management</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Administrator control dashboard to create, update, or remove campus events, keep track of student rosters, and search active booking records.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- 5. TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('/api/auth/me');
+                const data = await res.json();
+                
+                if (data.loggedIn) {
+                    const nav = document.getElementById('nav-actions');
+                    const heroBtn = document.getElementById('hero-primary-btn');
+                    const dashUrl = data.user.role === 'admin' ? 'admin.html' : 'dashboard.html';
+                    
+                    nav.innerHTML = `
+                        <span style="margin-right: 15px; font-size: 0.9rem; color: var(--text-muted);">Signed in as: <strong style="color: #fff">${data.user.name}</strong></span>
+                        <a href="${dashUrl}" class="btn btn-primary" style="padding: 8px 16px;">Go to Dashboard</a>
+                    `;
+                    
+                    if (heroBtn) {
+                        heroBtn.innerText = "Enter Portal Dashboard";
+                        heroBtn.href = dashUrl;
+                    }
+                }
+            } catch (err) {
+                console.error("Session verification failed on landing page:", err);
+            }
+        });
+    </script>
+</body>
+</html>

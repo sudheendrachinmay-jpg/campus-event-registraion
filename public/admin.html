@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Dashboard | Campus Events</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .chart-container {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .chart-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: var(--transition-smooth);
+        }
+        .chart-row:hover {
+            transform: translateX(4px);
+        }
+        .chart-row-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+        .chart-row:hover .chart-row-meta {
+            color: #ffffff;
+        }
+        .chart-bar-outer {
+            width: 100%;
+            height: 14px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-glass);
+            border-radius: 50px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        .chart-bar-inner {
+            height: 100%;
+            border-radius: 50px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent-pink) 100%);
+            box-shadow: 0 0 12px var(--primary-glow);
+            transition: width 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            width: 0%;
+            position: relative;
+            overflow: hidden;
+        }
+        .chart-bar-inner::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 255, 255, 0) 100
+            );
+            transform: skewX(-30deg) translateX(-100%);
+            animation: shimmerBar 3s infinite linear;
+        }
+        @keyframes shimmerBar {
+            100% {
+                transform: skewX(-30deg) translateX(150%);
+            }
+        }
+        .chart-bar-inner.c2 {
+            background: linear-gradient(90deg, var(--secondary) 0%, hsl(200, 85%, 50%) 100%);
+            box-shadow: 0 0 12px var(--secondary-glow);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- =======================================================
+           1. ADMIN SIDEBAR NAVIGATION
+           ======================================================= -->
+        <aside class="sidebar" style="background: rgba(8, 8, 12, 0.95); border-right: 1px solid rgba(255,255,255,0.06);">
+            <div>
+                <!-- Brand Header -->
+                <div class="sidebar-brand">
+                    <svg width="24" height="24" viewBox="0 0 32 32">
+                        <rect x="4" y="4" width="24" height="24" rx="6" fill="url(#logo-grad)" opacity="0.15" stroke="url(#logo-grad)" stroke-width="1.5"/>
+                        <path d="M12 20V12L16 15L20 12V20" stroke="url(#logo-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="gradient-text" style="font-weight: 800; font-size: 1.1rem; color: #fff;">Campus Admin</span>
+                </div>
+
+                <!-- Admin Profile Widget -->
+                <div class="user-profile-widget glass-panel" style="border-color: rgba(138, 43, 226, 0.2);">
+                    <div class="avatar-circle" style="background: linear-gradient(135deg, var(--primary) 0%, #ff4b91 100%);">A</div>
+                    <div class="user-widget-info">
+                        <span class="user-widget-name" id="admin-display-name">Loading...</span>
+                        <span class="user-widget-role" style="color: var(--primary-light);">Coordinator</span>
+                    </div>
+                </div>
+
+                <!-- Navigation List -->
+                <ul class="sidebar-menu">
+                    <li>
+                        <button class="menu-item-btn active" id="btn-tab-overview" onclick="showAdminPanel('overview')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                            <span>Stats Overview</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-item-btn" id="btn-tab-manage-events" onclick="showAdminPanel('manage-events')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            <span>Manage Events</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-item-btn" id="btn-tab-students-list" onclick="showAdminPanel('students-list')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            <span>View Students</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="menu-item-btn" id="btn-tab-registrations-log" onclick="showAdminPanel('registrations-log')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v6l4 2"></path></svg>
+                            <span>View Signups Log</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <button class="menu-item-btn" onclick="handleLogout()" style="color: var(--error); width:100%;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- =======================================================
+           2. ADMIN PORTAL CONTENT AREA
+           ======================================================= -->
+        <main class="main-content">
+            
+            <!-- Global Admin Header -->
+            <header class="dash-header" style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <div class="dash-header-title">
+                    <h2 id="admin-panel-title">Overview Dashboard</h2>
+                    <p id="admin-panel-subtitle">Access organizer utilities and registration networks.</p>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-dot warning"></span>
+                    <span style="font-size: 0.8rem; font-weight: 600; color: var(--warning);">Organizer Console</span>
+                </div>
+            </header>
+
+            <!-- ==========================================
+               PANEL A: STATS OVERVIEW & CHARTS
+               ========================================== -->
+            <section id="panel-overview" class="dashboard-panel active">
+                
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card glass-panel m1">
+                        <div class="metric-card-content">
+                            <div class="metric-card-info">
+                                <h4>Total Student Accounts</h4>
+                                <p id="ov-total-students">0</p>
+                            </div>
+                            <div class="metric-card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metric-card glass-panel m2">
+                        <div class="metric-card-content">
+                            <div class="metric-card-info">
+                                <h4>Campus Events Managed</h4>
+                                <p id="ov-total-events">0</p>
+                            </div>
+                            <div class="metric-card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="metric-card glass-panel m3">
+                        <div class="metric-card-content">
+                            <div class="metric-card-info">
+                                <h4>Global Registrations</h4>
+                                <p id="ov-total-regs">0</p>
+                            </div>
+                            <div class="metric-card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v6l4 2"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dual Layout with Custom Analytics Charts -->
+                <div class="dash-grid-layout">
+                    <!-- Chart 1: Event Popularity Chart -->
+                    <div class="glass-panel" style="padding: 24px;">
+                        <h3 style="font-size: 1.15rem; margin-bottom: 20px;">Top 5 Popular Events (Signups)</h3>
+                        <div class="chart-container" id="chart-popular-events">
+                            <p style="text-align:center; color:var(--text-muted); font-size:0.85rem;">Loading analytical data...</p>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Department-wise Students Distribution -->
+                    <div class="glass-panel" style="padding: 24px;">
+                        <h3 style="font-size: 1.15rem; margin-bottom: 20px;">Student Department Distribution</h3>
+                        <div class="chart-container" id="chart-department-dist">
+                            <p style="text-align:center; color:var(--text-muted); font-size:0.85rem;">Loading data...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+               PANEL B: MANAGE CAMPUS EVENTS (CRUD)
+               ========================================== -->
+            <section id="panel-manage-events" class="dashboard-panel">
+                <div class="dash-grid-layout" style="grid-template-columns: 1fr 1.5fr;">
+                    
+                    <!-- Left: Add/Edit Event Glassmorphic Form -->
+                    <div class="glass-panel" style="padding: 24px; height: fit-content;">
+                        <h3 id="event-form-title" style="font-size: 1.25rem; margin-bottom: 8px;">Create Campus Event</h3>
+                        <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 20px;">
+                            Input fields below to create a new event record in the database.
+                        </p>
+
+                        <form id="form-manage-event" onsubmit="handleEventCrudSubmit(event)" style="display: flex; flex-direction: column; gap: 14px;">
+                            <input type="hidden" id="crud-event-id">
+
+                            <div class="form-group">
+                                <label for="crud-title">Event Title</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="crud-title" class="form-input" style="padding-left: 16px;" placeholder="e.g. HackFest 2026" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="crud-description">Description</label>
+                                <div class="input-wrapper">
+                                    <textarea id="crud-description" class="form-input" style="padding-left: 16px; min-height: 80px; resize: vertical;" placeholder="Provide program details..." required></textarea>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <div class="form-group">
+                                    <label for="crud-date">Date</label>
+                                    <input type="date" id="crud-date" class="form-input" style="padding-left: 16px; font-size: 0.85rem;" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="crud-time">Time</label>
+                                    <input type="time" id="crud-time" class="form-input" style="padding-left: 16px; font-size: 0.85rem;" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="crud-venue">Venue</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="crud-venue" class="form-input" style="padding-left: 16px;" placeholder="e.g. CS Seminar Hall" required>
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 12px;">
+                                <div class="form-group">
+                                    <label for="crud-category">Category</label>
+                                    <div class="input-wrapper select-wrapper">
+                                        <select id="crud-category" class="form-select" style="padding-left: 16px; font-size: 0.85rem;" required>
+                                            <option value="Technical">Technical</option>
+                                            <option value="Cultural">Cultural</option>
+                                            <option value="Seminar">Seminar</option>
+                                            <option value="Sports">Sports</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="crud-capacity">Seat Capacity</label>
+                                    <input type="number" id="crud-capacity" class="form-input" style="padding-left: 16px; font-size: 0.85rem;" placeholder="e.g. 50" min="1" required>
+                                </div>
+                            </div>
+
+                            <div style="display:flex; gap: 10px; margin-top: 10px;">
+                                <button type="button" id="btn-crud-cancel" class="btn btn-outline" style="flex: 1; display: none;" onclick="resetCrudForm()">Cancel Edit</button>
+                                <button type="submit" id="btn-crud-submit" class="btn btn-primary" style="flex: 1.5;">Create Event Record</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right: Active Events Management Table -->
+                    <div class="glass-panel" style="padding: 24px; overflow-x: auto;">
+                        <h3 style="font-size: 1.15rem; margin-bottom: 20px;">Active Program Catalog</h3>
+                        <div class="table-responsive-container">
+                            <table class="custom-table" style="font-size: 0.82rem;">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Venue</th>
+                                        <th>Date</th>
+                                        <th>Seats (Booked/Cap)</th>
+                                        <th style="text-align: right;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-events-table-body">
+                                    <!-- Injected -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+               PANEL C: VIEW STUDENTS DIRECTORY
+               ========================================== -->
+            <section id="panel-students-list" class="dashboard-panel">
+                <div class="panel-header-section">
+                    <h3 style="font-size: 1.3rem;">Registered Student Log Directory</h3>
+                    
+                    <!-- Search Box -->
+                    <div class="search-box-container" style="margin-bottom: 0;">
+                        <div class="input-wrapper" style="width: 100%;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="student-search-input" class="form-input" placeholder="Search student by name, USN, or dept..." oninput="handleStudentSearch()" style="padding-top: 8px; padding-bottom: 8px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive-container">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Full Name</th>
+                                <th>USN</th>
+                                <th>Department</th>
+                                <th>Email</th>
+                                <th>Registered Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-students-table-body">
+                            <!-- Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ==========================================
+               PANEL D: REGISTRATIONS LOG
+               ========================================== -->
+            <section id="panel-registrations-log" class="dashboard-panel">
+                <div class="panel-header-section">
+                    <div style="display: flex; flex-direction: column;">
+                        <h3 style="font-size: 1.3rem;">Student Enrollment Logs</h3>
+                        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                            Retrieves composite registration details showing student event bookings.
+                        </p>
+                    </div>
+
+                    <!-- Search Box -->
+                    <div class="search-box-container" style="margin-bottom: 0;">
+                        <div class="input-wrapper" style="width: 100%;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="reg-search-input" class="form-input" placeholder="Search registrations by USN, student name, or event..." oninput="handleRegSearch()" style="padding-top: 8px; padding-bottom: 8px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive-container">
+                    <table class="custom-table" style="font-size: 0.85rem;">
+                        <thead>
+                            <tr>
+                                <th>Reg ID</th>
+                                <th>Student Name</th>
+                                <th>USN</th>
+                                <th>Department</th>
+                                <th>Event Joined</th>
+                                <th>Venue</th>
+                                <th>Registration Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-regs-table-body">
+                            <!-- Injected -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Core Dynamic Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            verifyAdminSession();
+        });
+    </script>
+</body>
+</html>

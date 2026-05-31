@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Project Report & Viva Guide | Campus Event registration</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Academic Report Theme Overrides (White paper feel, premium typography) */
+        .report-body {
+            background: #ffffff !important;
+            color: #1a1a1a !important;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .report-page-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 50px;
+            background: #ffffff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        .report-header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: rgba(13, 11, 22, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .report-title-badge {
+            background: #f1f0f4;
+            color: #581c87;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .report-cover {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 3px double #e5e5e5;
+            padding-bottom: 60px;
+            margin-bottom: 60px;
+        }
+
+        .report-cover h1 {
+            font-size: 3rem;
+            color: #111111;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            line-height: 1.2;
+            margin: 20px 0;
+        }
+
+        .report-cover h2 {
+            font-size: 1.3rem;
+            color: #555555;
+            font-weight: 500;
+            margin-bottom: 50px;
+        }
+
+        .cover-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 50px;
+            border-top: 1px solid #e5e5e5;
+            padding-top: 30px;
+            text-align: left;
+        }
+
+        .cover-details-col p {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .cover-details-col strong {
+            color: #111111;
+        }
+
+        .report-section {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .report-section h2 {
+            font-size: 1.8rem;
+            color: #581c87; /* Deep Purple */
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 20px;
+            font-weight: 700;
+            border-left: 5px solid #8b5cf6;
+            padding-left: 15px;
+        }
+
+        .report-section h3 {
+            font-size: 1.25rem;
+            color: #111111;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .report-section p, .report-section li {
+            font-size: 0.98rem;
+            color: #333333;
+            margin-bottom: 12px;
+        }
+
+        .report-section ul, .report-section ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .report-table th, .report-table td {
+            border: 1px solid #e0e0e0;
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .report-table th {
+            background-color: #f8f6fc;
+            color: #581c87;
+            font-weight: 600;
+        }
+
+        .report-table td {
+            background-color: #ffffff;
+            color: #2b2b2b;
+        }
+
+        .code-explanation-card {
+            background-color: #faf9fd;
+            border: 1px solid #e9e5f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .code-explanation-card pre {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.82rem;
+            background: #110d1a;
+            color: #a5f3fc;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin-bottom: 15px;
+        }
+
+        .explanation-bullet-points {
+            list-style: none;
+            padding-left: 0;
+            font-size: 0.9rem;
+        }
+
+        .explanation-bullet-points li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .explanation-bullet-points li::before {
+            content: '✓';
+            color: #8b5cf6;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .viva-card {
+            background-color: #fafafa;
+            border: 1px solid #e5e7eb;
+            border-left: 4px solid #581c87;
+            border-radius: 8px;
+            padding: 22px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        }
+        
+        .viva-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.04);
+            background-color: #ffffff;
+            border-color: #d1d5db;
+        }
+ 
+        .viva-question {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: #581c87;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+ 
+        .viva-answer {
+            color: #374151;
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        /* PRINT MEDIA SPECIFICATIONS - PUBLICATION READY CONFIG */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+            .report-header-nav, #toast-container, .btn-print-floating {
+                display: none !important;
+            }
+            .report-page-container {
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+            }
+            .page-break {
+                page-break-before: always !important;
+            }
+            .code-explanation-card pre {
+                background: #f4f4f5 !important;
+                color: #09090b !important;
+                border: 1px solid #e4e4e7 !important;
+                white-space: pre-wrap !important;
+                word-break: break-all !important;
+            }
+            h1, h2, h3 {
+                color: #000000 !important;
+                page-break-after: avoid !important;
+            }
+            p, tr, li {
+                orphans: 3;
+                widows: 3;
+            }
+        }
+    </style>
+</head>
+<body class="report-body">
+
+    <!-- Floating Print Controls Banner -->
+    <div class="report-header-nav">
+        <div class="logo-container">
+            <svg width="24" height="24" viewBox="0 0 32 32">
+                <rect x="4" y="4" width="24" height="24" rx="6" fill="url(#logo-grad)" opacity="0.15" stroke="url(#logo-grad)" stroke-width="1.5"/>
+                <path d="M11 21V11L16 16L21 11V21" stroke="url(#logo-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="gradient-text" style="font-weight: 800; font-size: 1.15rem; color:#fff;">EventFlow SQL Docs</span>
+        </div>
+        <div>
+            <a href="dashboard.html" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem; margin-right:10px;">Back to Portal</a>
+            <button class="btn btn-secondary" onclick="window.print()" style="padding: 8px 18px; font-size: 0.85rem;">
+                🖨️ Export report to PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- DOCUMENTATION CONTAINER -->
+    <div class="report-page-container">
+
+        <!-- ==========================================
+           COVER PAGE (ACADEMIC SPEC)
+           ========================================== -->
+        <section class="report-cover">
+            <div class="report-title-badge">UNIVERSITY LABORATORY MINI PROJECT REPORT</div>
+            <h1>CAMPUS EVENT REGISTRATION &<br>LOGIN SYSTEM</h1>
+            <h2>A Full-Stack DBMS Relational Implementation</h2>
+            <p style="color: #666; max-width: 500px; margin-top:20px; font-size: 0.95rem;">
+                Submitted in partial fulfillment of the requirements for the degree of Bachelor of Technology in Engineering and Computer Database Management Systems Laboratory evaluation.
+            </p>
+
+            <div class="cover-details">
+                <div class="cover-details-col">
+                    <p><strong>DEVELOPED BY:</strong></p>
+                    <p>Student Name: <strong>Alice Smith</strong></p>
+                    <p>USN: <strong>1MS22CS001</strong></p>
+                    <p>Department: <strong>Computer Science</strong></p>
+                </div>
+                <div class="cover-details-col" style="text-align: right;">
+                    <p><strong>EVALUATED BY:</strong></p>
+                    <p>Subject: <strong>DBMS Laboratory (CS-302)</strong></p>
+                    <p>Instructor: <strong>Dr. Sarah Jenkins</strong></p>
+                    <p>Date: <strong>May 2026</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+           SECTION 1: PROJECT OVERVIEW
+           ========================================== -->
+        <section class="report-section page-break">
+            <h2>1. Project Overview</h2>
+            <p>
+                The <strong>Campus Event Registration & Login System</strong> (internally known as <em>EventFlow SQL</em>) is a modern, responsive web application engineered to coordinate, display, and manage university campus events. The system acts as a secure transactions portal enabling students to sign up for seminars, hackathons, sports activities, and cultural festivals while maintaining relational constraints in real-time.
+            </p>
+            <h3>1.1 Real-World Use Case</h3>
+            <p>
+                In a typical university setting, managing events and coordinating registrations are manually intensive, often leading to oversigned events, database errors, or security holes. This project provides a robust digital solution:
+            </p>
+            <ul>
+                <li><strong>Students</strong> register once, login securely, browse up-to-date events catalogs, check seat availability, and manage registrations.</li>
+                <li><strong>Administrators</strong> oversee analytics, create new campus events, monitor seat bookings, and search registries.</li>
+            </ul>
+            <h3>1.2 Importance of DBMS in Event Portals</h3>
+            <p>
+                Without a relational Database Management System (DBMS), handling transaction constraints is highly prone to failures (e.g., two students booking the last remaining seat simultaneously). A relational database guarantees <strong>ACID properties</strong> (Atomicity, Consistency, Isolation, Durability) to ensure capacity counts never exceed physical seat limits, registration lists stay linked to unique student accounts, and student data is preserved securely under foreign key restraints.
+            </p>
+        </section>
+
+        <!-- ==========================================
+           SECTION 2: TECH STACK EXPLANATION
+           ========================================== -->
+        <section class="report-section">
+            <h2>2. Tech Stack Explanation</h2>
+            <p>
+                The architecture is designed to reflect professional enterprise structures, utilizing vanilla modules to keep relational code transparent and easily explainable:
+            </p>
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Layer</th>
+                        <th style="width: 30%;">Technology</th>
+                        <th style="width: 45%;">Role & Academic Selection Rationale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Frontend (UI/UX)</strong></td>
+                        <td>HTML5, Vanilla CSS3, Vanilla JS</td>
+                        <td>Handles responsive views, modern glassmorphic visual styles, charts, and API communications via Fetch API without requiring heavy third-party framework overheads.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Backend Host</strong></td>
+                        <td>Node.js & Express.js</td>
+                        <td>Node provides a fast, asynchronous runtime, while Express coordinates clean RESTful controllers and middleware layers.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Relational Database</strong></td>
+                        <td>MySQL</td>
+                        <td>Industry standard SQL engine that supports robust relationships, complex multi-joins, aggregate functions, and foreign key cascades.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DB Client Driver</strong></td>
+                        <td><code>mysql2/promise</code></td>
+                        <td>Enables execution of parameterized <strong>raw SQL queries</strong> rather than ORMs, making the underlying relational schema and queries clearly visible for lab evaluations.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Authentication</strong></td>
+                        <td><code>bcryptjs</code> & <code>express-session</code></td>
+                        <td>Secures user accounts by executing industry-standard SHA-256 salt-password hashing, maintaining login state via cookie-based sessions.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ==========================================
+           SECTION 3: FOLDER STRUCTURE EXPLANATION
+           ========================================== -->
+        <section class="report-section page-break">
+            <h2>3. Folder Structure Directory</h2>
+            <p>
+                A clean, modular folder layout separates static browser clients, routing pipelines, controllers, database models, and environmental credentials:
+            </p>
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Path Location</th>
+                        <th style="width: 70%;">Purpose & Educational Rationale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>server.js</code></td>
+                        <td>Application entry point. Bootstraps the Express server, binds Middlewares, sets Session cookies, and binds API Routers.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.env</code></td>
+                        <td>Stores environmental configurations such as Database connection hosts, ports, and secret key tokens securely.</td>
+                    </tr>
+                    <tr>
+                        <td><code>config/db.js</code></td>
+                        <td>Connects to MySQL. Automatically verifies database existence on startup, creates tables, and seeds dummy records if missing.</td>
+                    </tr>
+                    <tr>
+                        <td><code>database/schema.sql</code></td>
+                        <td>Defines structural DDL (Data Definition Language) table structures, keys, indices, and constraints.</td>
+                    </tr>
+                    <tr>
+                        <td><code>database/dummy_data.sql</code></td>
+                        <td>Populates mock database records for students, admins, and events for immediate testing.</td>
+                    </tr>
+                    <tr>
+                        <td><code>routes/</code></td>
+                        <td>Binds API path endpoints to corresponding handlers (e.g. auth, events, admin statistics, live query compiler).</td>
+                    </tr>
+                    <tr>
+                        <td><code>controllers/</code></td>
+                        <td>Hosts isolated business logic functions. Contains parameterized raw SQL runs returning clean JSON responses.</td>
+                    </tr>
+                    <tr>
+                        <td><code>middleware/authMiddleware.js</code></td>
+                        <td>Route guards. Checks sessions to allow only students to register for events, and block admin views for non-admins.</td>
+                    </tr>
+                    <tr>
+                        <td><code>public/</code></td>
+                        <td>Static frontend client files served directly in browsers (landing pages, student dashboard, admin logs, CSS styling, and documentation).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ==========================================
+           SECTION 4: RELATIONAL DATABASE DESIGN
+           ========================================== -->
+        <section class="report-section page-break">
+            <h2>4. Relational Database Design</h2>
+            <p>
+                The system uses 4 core tables built in **Third Normal Form (3NF)** to ensure zero data redundancy and maximum relational consistency:
+            </p>
+
+            <h3>4.1 Table Specifications</h3>
+            
+            <h4>4.1.1 <code>students</code> Table</h4>
+            <p>Stores the student profile attributes and hashed passwords.</p>
+            <table class="report-table">
+                <thead>
+                    <tr><th>Column Name</th><th>Data Type</th><th>Constraints</th><th>Relational Purpose</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>student_id</code></td><td>INT</td><td>PRIMARY KEY, AUTO_INCREMENT</td><td>Unique relational handle for each student account.</td></tr>
+                    <tr><td><code>full_name</code></td><td>VARCHAR(100)</td><td>NOT NULL</td><td>Student's display name.</td></tr>
+                    <tr><td><code>email</code></td><td>VARCHAR(100)</td><td>UNIQUE, NOT NULL</td><td>Login email, restricted to prevent duplicates.</td></tr>
+                    <tr><td><code>password</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Secured, hashed user credentials.</td></tr>
+                    <tr><td><code>department</code></td><td>VARCHAR(50)</td><td>NOT NULL</td><td>Student's engineering department.</td></tr>
+                    <tr><td><code>usn</code></td><td>VARCHAR(20)</td><td>UNIQUE, NOT NULL</td><td>University Seat Number (USN) to identify records.</td></tr>
+                </tbody>
+            </table>
+
+            <h4>4.1.2 <code>admins</code> Table</h4>
+            <p>Stores administrative login credentials.</p>
+            <table class="report-table">
+                <thead>
+                    <tr><th>Column Name</th><th>Data Type</th><th>Constraints</th><th>Relational Purpose</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>admin_id</code></td><td>INT</td><td>PRIMARY KEY, AUTO_INCREMENT</td><td>Unique handle for system administrators.</td></tr>
+                    <tr><td><code>email</code></td><td>VARCHAR(100)</td><td>UNIQUE, NOT NULL</td><td>Login email.</td></tr>
+                </tbody>
+            </table>
+
+            <h4>4.1.3 <code>events</code> Table</h4>
+            <p>Stores details of events created by administrators.</p>
+            <table class="report-table">
+                <thead>
+                    <tr><th>Column Name</th><th>Data Type</th><th>Constraints</th><th>Relational Purpose</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>event_id</code></td><td>INT</td><td>PRIMARY KEY, AUTO_INCREMENT</td><td>Unique handle for campus events.</td></tr>
+                    <tr><td><code>title</code></td><td>VARCHAR(150)</td><td>NOT NULL</td><td>Title of the scheduled activity.</td></tr>
+                    <tr><td><code>capacity</code></td><td>INT</td><td>NOT NULL</td><td>Total seats allocated for registrations.</td></tr>
+                    <tr><td><code>created_by</code></td><td>INT</td><td>FOREIGN KEY referencing <code>admins.admin_id</code></td><td>Tracks creator. Cascade-sets to NULL on admin deletion.</td></tr>
+                </tbody>
+            </table>
+
+            <h4>4.1.4 <code>registrations</code> Table (Junction Table)</h4>
+            <p>Handles the many-to-many relationship connecting students to events.</p>
+            <table class="report-table">
+                <thead>
+                    <tr><th>Column Name</th><th>Data Type</th><th>Constraints</th><th>Relational Purpose</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>registration_id</code></td><td>INT</td><td>PRIMARY KEY, AUTO_INCREMENT</td><td>Unique registration transaction handle.</td></tr>
+                    <tr><td><code>student_id</code></td><td>INT</td><td>FOREIGN KEY referencing <code>students.student_id</code></td><td>Cascades and deletes row if student account is removed.</td></tr>
+                    <tr><td><code>event_id</code></td><td>INT</td><td>FOREIGN KEY referencing <code>events.event_id</code></td><td>Cascades and cancels registrations if event is deleted.</td></tr>
+                    <tr><td>-</td><td>-</td><td>UNIQUE(<code>student_id</code>, <code>event_id</code>)</td><td><strong>Composite Unique Key</strong>: prevents a student registering twice!</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ==========================================
+           SECTION 5: BACKEND WORKING FLOWS
+           ========================================== -->
+        <section class="report-section page-break">
+            <h2>5. Backend Working Flows</h2>
+            <p>
+                The backend acts as an orchestrator converting RESTful API HTTP calls into safe, parameterized SQL transactions, returning results in JSON arrays:
+            </p>
+            <ol>
+                <li><strong>Registration Flow:</strong> Student sends profile data. Backend checks if the email or USN already exists via a `SELECT` statement. If unique, passwords are encrypted via `bcryptjs`, and records are securely written using a parameterized `INSERT` query.</li>
+                <li><strong>Login Flow:</strong> Student provides email and password. Backend pulls the unique account details using `SELECT * FROM students WHERE email = ?`. Password validation compares the hashes. On success, user parameters are written to the Express session, sending back a secure session cookie (`connect.sid`).</li>
+                <li><strong>Database Connection Pool:</strong> Using a pool rather than opening single connections ensures threads are reused dynamically, protecting database performance.</li>
+                <li><strong>Event Transaction Safeguards:</strong> When registering, the backend performs a check on remaining seats. A SELECT count counts existing signups and compares it with event capacity. If capacity is not exceeded, the registration is authorized.</li>
+            </ol>
+        </section>
+
+        <!-- ==========================================
+           SECTION 6: SQL QUERY EXPLANATION (VERY IMPORTANT)
+           ========================================== -->
+        <section class="report-section page-break">
+            <h2>6. SQL Query Explanation (Line-by-Line Viva Details)</h2>
+            <p>
+                Here are the specific, raw SQL queries integrated into the EventFlow application, designed to clearly demonstrate core DBMS constructs to evaluators:
+            </p>
+
+            <!-- Query 1 -->
+            <div class="code-explanation-card">
+                <span style="font-weight: 700; color: #581c87; font-size: 0.95rem;">CONCEPT A: Multi-Table Joins & Student Enrollments</span>
+                <pre>
+SELECT s.student_id, s.full_name, s.usn, s.department, r.registered_at 
+FROM registrations r 
+INNER JOIN students s ON r.student_id = s.student_id 
+WHERE r.event_id = 1 
+ORDER BY s.full_name ASC;</pre>
+                <ul class="explanation-bullet-points">
+                    <li><strong>Purpose:</strong> Retrieves the list of all students registered for the event with ID = 1.</li>
+                    <li><strong>Line 1 (SELECT):</strong> Projects specific fields: student's name, USN, department, and exact registration time, omitting password fields for security.</li>
+                    <li><strong>Line 2 & 3 (INNER JOIN):</strong> Combines records from the junction table 'registrations' (r) and entity table 'students' (s) where the 'student_id' matches in both tables.</li>
+                    <li><strong>Line 4 (WHERE):</strong> Filters records, returning only registrations matching Event ID = 1 (HackFest 2026).</li>
+                    <li><strong>Line 5 (ORDER BY):</strong> Sorts student rows alphabetically (A-Z) by full name.</li>
+                </ul>
+            </div>
+
+            <!-- Query 2 -->
+            <div class="code-explanation-card">
+                <span style="font-weight: 700; color: #581c87; font-size: 0.95rem;">CONCEPT B: Aggregate COUNT, Outer LEFT JOIN & GROUP BY</span>
+                <pre>
+SELECT e.event_id, e.title, e.capacity, COUNT(r.registration_id) AS total_registrations 
+FROM events e 
+LEFT JOIN registrations r ON e.event_id = r.event_id 
+GROUP BY e.event_id, e.title, e.capacity 
+ORDER BY total_registrations DESC;</pre>
+                <ul class="explanation-bullet-points">
+                    <li><strong>Purpose:</strong> Compiles the metrics display showing active events, seat capacities, and current enrollment counts.</li>
+                    <li><strong>COUNT(r.registration_id):</strong> Counts registration records associated with each event.</li>
+                    <li><strong>LEFT JOIN:</strong> Ensures that ALL events are returned, even if they have 0 registrations (an INNER JOIN would omit events with 0 signups!).</li>
+                    <li><strong>GROUP BY:</strong> Groups results by event details so aggregate counts are computed per event.</li>
+                    <li><strong>ORDER BY DESC:</strong> Sorts events by popularity, placing the highest registration counts first.</li>
+                </ul>
+            </div>
+
+            <!-- Query 3 -->
+            <div class="code-explanation-card">
+                <span style="font-weight: 700; color: #581c87; font-size: 0.95rem;">CONCEPT C: GROUP BY Filtering with HAVING Clause</span>
+                <pre>
+SELECT e.event_id, e.title, COUNT(r.registration_id) AS total_regs 
+FROM events e 
+INNER JOIN registrations r ON e.event_id = r.event_id 
+GROUP BY e.event_id, e.title 
+HAVING total_regs >= 2;</pre>
+                <ul class="explanation-bullet-points">
+                    <li><strong>Purpose:</strong> Identifies high-interest events having 2 or more registrations.</li>
+                    <li><strong>HAVING Clause:</strong> Standard 'WHERE' filters cannot evaluate aggregate functions. We use 'HAVING' to filter grouped records based on computed COUNT aggregates.</li>
+                    <li><strong>Viva Rationale:</strong> 'WHERE' filters individual database rows *before* grouping; 'HAVING' filters grouped datasets *after* aggregation has run!</li>
+                </ul>
+            </div>
+
+            <!-- Query 4 -->
+            <div class="code-explanation-card">
+                <span style="font-weight: 700; color: #581c87; font-size: 0.95rem;">CONCEPT D: Nested Subqueries & NULL checks</span>
+                <pre>
+SELECT student_id, full_name, usn, department 
+FROM students 
+WHERE student_id NOT IN (
+    SELECT DISTINCT student_id 
+    FROM registrations
+);</pre>
+                <ul class="explanation-bullet-points">
+                    <li><strong>Purpose:</strong> Searches the roster to list inactive students who have signed up for 0 events.</li>
+                    <li><strong>Subquery (SELECT DISTINCT):</strong> Compiles a unique set of all student IDs present in registrations.</li>
+                    <li><strong>NOT IN:</strong> The outer query returns student profiles whose IDs do *not* appear in the subquery's list.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==========================================
+           SECTION 7: AUTHENTICATION FLOW
+           ========================================== -->
+        <section class="report-section">
+            <h2>7. Security & Authentication Flow</h2>
+            <p>
+                Securing user records is critical to modern application integrity. This project implements standard cryptographic safeguards:
+            </p>
+            <ul>
+                <li><strong>Password Cryptography (bcryptjs):</strong> Plaintext passwords are never stored in the database. When creating an account, the password is encrypted using a SHA-256 salt-based algorithm (salt rounds = 10).</li>
+                <li><strong>Session Cookies:</strong> Rather than passing sensitive IDs back and forth, a secure session cookie (`connect.sid`) is saved in the browser. The session data is maintained safely on the server.</li>
+                <li><strong>Input Injection Guard:</strong> Sanitization protects the database against SQL injections. We use <strong>parameterized queries</strong> where inputs are parsed as string literals rather than raw executable code.</li>
+            </ul>
+        </section>
+
+        <!-- ==========================================
+           SECTION 8: STEP-BY-STEP SETUP GUIDE
+           ========================================== -->
+        <section class="report-section page-break">
+            <h2>8. Step-by-Step Execution Guide</h2>
+            <p>
+                Follow these instructions to run the full-stack system locally:
+            </p>
+
+            <h3>8.1 Installing Dependencies</h3>
+            <ol>
+                <li>Ensure you have <strong>Node.js</strong> (v16.0.0 or higher) installed on your system.</li>
+                <li>Open a terminal inside the project directory and run the command to install packages:
+                    <pre style="background: #f4f4f5; padding: 10px; border-radius: 4px; font-family: monospace; border:1px solid #e4e4e7; margin: 5px 0;">npm install</pre>
+                </li>
+            </ol>
+
+            <h3>8.2 Running MySQL & Setup</h3>
+            <ol>
+                <li>Start your local MySQL Server (e.g. via <strong>XAMPP Control Panel</strong> by clicking "Start" next to MySQL, or using your standard MySQL service).</li>
+                <li>No database import is required! Our auto-initialization module in <code>config/db.js</code> will automatically detect your MySQL server, create the <code>campus_events</code> database, build the tables, and seed all dummy data on first start!</li>
+            </ol>
+
+            <h3>8.3 Booting the Server</h3>
+            <ol>
+                <li>Run the startup command in your terminal:
+                    <pre style="background: #f4f4f5; padding: 10px; border-radius: 4px; font-family: monospace; border:1px solid #e4e4e7; margin: 5px 0;">npm start</pre>
+                </li>
+                <li>Open your browser and navigate to: <strong><a href="http://localhost:3000" target="_blank" style="color: #8b5cf6; text-decoration: underline;">http://localhost:3000</a></strong></li>
+            </ol>
+        </section>
+
+        <!-- ==========================================
+           SECTION 9: VIVA PREPARATION QUESTIONS & ANSWERS
+           ========================================== -->
+        <section class="report-section page-break">
+            <h2>9. Viva Preparation Q&A (Be Viva-Ready!)</h2>
+            <p>
+                Here are the most frequently asked questions during database and web project viva evaluations, along with clear, technical answers:
+            </p>
+
+            <div class="viva-card">
+                <div class="viva-question">Q1: Explain the difference between INNER JOIN and LEFT JOIN. Which one did you use and why?</div>
+                <div class="viva-answer">
+                    <strong>Answer:</strong> An <code>INNER JOIN</code> returns rows only when there is a match in both joined tables. If a student has no registrations, they will not appear. A <code>LEFT JOIN</code> returns ALL rows from the left table, along with matching rows from the right table. If there is no match, the columns of the right table return <code>NULL</code>.<br>
+                    In this project, we used <code>LEFT JOIN</code> to show all events (including those with 0 signups) on the catalog, and <code>INNER JOIN</code> for the registration log to only list active event bookings.
+                </div>
+            </div>
+
+            <div class="viva-card">
+                <div class="viva-question">Q2: How does your junction table handle composite unique keys? Why is it important?</div>
+                <div class="viva-answer">
+                    <strong>Answer:</strong> Our junction table <code>registrations</code> features a composite unique constraint: <code>CONSTRAINT unique_registration UNIQUE (student_id, event_id)</code>. This ensures that the database rejects any attempt to insert a duplicate combination of the same student and event. This constraint prevents double-registrations, maintaining relational integrity.
+                </div>
+            </div>
+
+            <div class="viva-card">
+                <div class="viva-question">Q3: What is SQL Injection, and how did you prevent it in your code?</div>
+                <div class="viva-answer">
+                    <strong>Answer:</strong> SQL Injection is a vulnerability where an attacker embeds malicious SQL commands into input fields, aiming to manipulate or drop tables. We prevent this by using <strong>parameterized queries</strong> (using the <code>?</code> placeholders in <code>mysql2</code>). Parameters are parsed by the database as data literals, not executable code, neutralizing injection attempts.
+                </div>
+            </div>
+
+            <div class="viva-card">
+                <div class="viva-question">Q4: What are the normalization forms, and is your database normalized?</div>
+                <div class="viva-answer">
+                    <strong>Answer:</strong> Yes, our database is designed in **Third Normal Form (3NF)**.
+                    <ul>
+                        <li><strong>1NF:</strong> All values are atomic (each cell contains one value) and columns contain values of the same type.</li>
+                        <li><strong>2NF:</strong> It is in 1NF and contains no partial dependencies (non-key columns depend entirely on the primary keys).</li>
+                        <li><strong>3NF:</strong> It is in 2NF and contains no transitive dependencies (non-key columns do not depend on other non-key columns).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="viva-card">
+                <div class="viva-question">Q5: Explain the 'ON DELETE CASCADE' clause. What happens if a student account is deleted?</div>
+                <div class="viva-answer">
+                    <strong>Answer:</strong> The <code>ON DELETE CASCADE</code> constraint ensures that when a parent record is deleted, all child records referencing it are deleted automatically. In our system, if an event or a student is deleted, all associated registrations in the junction table are removed automatically. This prevents orphan records and preserves referential integrity.
+                </div>
+            </div>
+
+            <div class="viva-card">
+                <div class="viva-question">Q6: What is a Correlated Subquery? How is it different from a standard subquery?</div>
+                <div class="viva-answer">
+                    <strong>Answer:</strong> A standard subquery is independent of the outer query and runs once. A <strong>correlated subquery</strong> is dependent on the outer query, referencing columns from the outer query's current row. It runs repeatedly, once for every row processed by the outer query. We use this concept to list fully booked events by dynamically comparing the event's capacity to its real-time registration count.
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+           SECTION 10: FUTURE ENHANCEMENTS
+           ========================================== -->
+        <section class="report-section" style="border-bottom: none;">
+            <h2>10. Future Enhancements</h2>
+            <p>
+                While the system provides a highly polished foundation, here are planned future extensions for production deployment:
+            </p>
+            <ol>
+                <li><strong>QR Code Attendance Tracking:</strong> Generate a unique QR code on the student's dashboard for each successful registration. Event coordinators can scan these codes at the venue to log attendance instantly.</li>
+                <li><strong>Automated Email Notifications:</strong> Integrate Nodemailer to send confirmation emails and calendar invites to students upon successful registration.</li>
+                <li><strong>Event Analytics Dashboard:</strong> Expand admin insights with interactive charts showing demographic participation and feedback scores.</li>
+                <li><strong>Payment Integration:</strong> Add Stripe or Razorpay API support for paid ticket bookings.</li>
+            </ol>
+        </section>
+
+    </div>
+
+    <!-- TOAST NOTIFICATIONS container -->
+    <div id="toast-container" class="toast-container"></div>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>

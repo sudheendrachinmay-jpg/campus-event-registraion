@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Access | Campus Event Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="auth-container">
+        <!-- Master Auth Panel (Glassmorphism layout) -->
+        <div class="auth-card glass-panel">
+            
+            <!-- LEFT PANEL: REGISTRATION & LOGIN FORMS -->
+            <div class="auth-form-side">
+                <div class="logo-container" style="margin-bottom: 25px;">
+                    <svg width="28" height="28" viewBox="0 0 32 32">
+                        <rect x="4" y="4" width="24" height="24" rx="6" fill="url(#logo-grad)" opacity="0.15" stroke="url(#logo-grad)" stroke-width="1.5"/>
+                        <path d="M12 20V12L16 15L20 12V20" stroke="url(#logo-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="gradient-text" style="font-size: 1.25rem;">Campus Events</span>
+                </div>
+
+                <!-- Toggle Form Tabs -->
+                <div class="auth-tab-buttons">
+                    <div id="tab-login" class="auth-tab-btn active" onclick="switchAuthTab('login')">Sign In</div>
+                    <div id="tab-register" class="auth-tab-btn" onclick="switchAuthTab('register')">Create Account</div>
+                </div>
+
+                <!-- 1. LOGIN FORM PANEL -->
+                <div id="panel-login" class="auth-panel active">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Portal Access</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">
+                        Select your portal role and enter your credentials.
+                    </p>
+
+                    <!-- Role Switcher -->
+                    <div class="role-switcher">
+                        <label class="role-radio">
+                            <input type="radio" name="login-role" value="student" checked>
+                            <div class="role-label">Student</div>
+                        </label>
+                        <label class="role-radio">
+                            <input type="radio" name="login-role" value="admin">
+                            <div class="role-label">Event Organizer</div>
+                        </label>
+                    </div>
+
+                    <form id="form-login" onsubmit="handleLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                        <div class="form-group">
+                            <label for="login-email">Campus Email</label>
+                            <div class="input-wrapper">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <input type="email" id="login-email" class="form-input" placeholder="e.g. student@university.edu" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <div class="input-wrapper">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <input type="password" id="login-password" class="form-input" placeholder="••••••••••••" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Sign In to Portal</button>
+                    </form>
+                </div>
+
+                <!-- 2. STUDENT REGISTRATION FORM PANEL -->
+                <div id="panel-register" class="auth-panel" style="display: none;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Student Sign Up</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">
+                        Register your student profile on the campus network.
+                    </p>
+
+                    <form id="form-register" onsubmit="handleRegisterSubmit(event)" style="display: flex; flex-direction: column; gap: 12px;">
+                        <div class="form-group">
+                            <label for="reg-name">Full Name</label>
+                            <div class="input-wrapper">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                <input type="text" id="reg-name" class="form-input" placeholder="e.g. Alice Smith" required>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="form-group">
+                                <label for="reg-email">Email</label>
+                                <div class="input-wrapper">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path></svg>
+                                    <input type="email" id="reg-email" class="form-input" placeholder="alice@student.edu" style="padding-left: 36px;" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-roll">USN</label>
+                                <div class="input-wrapper">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                    <input type="text" id="reg-roll" class="form-input" placeholder="e.g. 1MS22CS001" style="padding-left: 36px;" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-dept">Department</label>
+                            <div class="input-wrapper select-wrapper">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path></svg>
+                                <select id="reg-dept" class="form-select" required>
+                                    <option value="" disabled selected>Choose your department...</option>
+                                    <option value="Computer Science">Computer Science</option>
+                                    <option value="Information Technology">Information Technology</option>
+                                    <option value="Electronics Engineering">Electronics Engineering</option>
+                                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                    <option value="Civil Engineering">Civil Engineering</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-password">Password</label>
+                            <div class="input-wrapper">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <input type="password" id="reg-password" class="form-input" placeholder="Min 6 characters" minlength="6" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-secondary" style="width: 100%; margin-top: 5px;">Create Student Account</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: VISUAL COMPONENT -->
+            <div class="auth-visual-side">
+                <div class="auth-visual-content">
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <span class="badge badge-tech" style="width: fit-content;">University Network</span>
+                        <h2 style="font-size: 2.2rem; font-weight: 800; line-height: 1.25; margin-top: 5px;">
+                            Campus Events<br>
+                            <span class="gradient-text">Coordinated Online.</span>
+                        </h2>
+                    </div>
+
+                    <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 25px; line-height: 1.6; font-size: 0.9rem;">
+                        <h4 style="color:#fff; margin-bottom: 8px; font-weight:600;">✨ Explore active campus programs</h4>
+                        <p style="color:var(--text-muted); font-size: 0.82rem; margin-bottom: 12px;">
+                            Gain access to inter-college hackathons, industrial seminars, combative robotics competitions, and sports stadiums tournaments.
+                        </p>
+                        <ul style="color: var(--secondary-light); font-size: 0.78rem; list-style: none; display: flex; flex-direction: column; gap: 6px;">
+                            <li>✔ Real-time seat updates and booking metrics</li>
+                            <li>✔ Clean Student and Organizer access panels</li>
+                            <li>✔ Secure session validations and profiles manager</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;">
+                            Seeded with local test accounts! You can register instantly, or log in with these details:
+                        </p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; font-size: 0.75rem;">
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass); border-radius: 6px; padding: 8px;">
+                                <strong style="color: #fff">Student:</strong><br>
+                                Email: <span style="color: var(--secondary-light);">alice@student.edu</span><br>
+                                Pass: <span style="color: var(--secondary-light);">student123</span>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass); border-radius: 6px; padding: 8px;">
+                                <strong style="color: #fff">Organizer:</strong><br>
+                                Email: <span style="color: var(--primary-light);">admin@campus.edu</span><br>
+                                Pass: <span style="color: var(--primary-light);">admin123</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATIONS container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+            if (mode === 'register') {
+                switchAuthTab('register');
+            }
+        });
+
+        function switchAuthTab(tab) {
+            const btnLogin = document.getElementById('tab-login');
+            const btnRegister = document.getElementById('tab-register');
+            const panelLogin = document.getElementById('panel-login');
+            const panelRegister = document.getElementById('panel-register');
+
+            if (tab === 'login') {
+                btnLogin.classList.add('active');
+                btnRegister.classList.remove('active');
+                panelLogin.style.display = 'block';
+                panelRegister.style.display = 'none';
+            } else {
+                btnLogin.classList.remove('active');
+                btnRegister.classList.add('active');
+                panelLogin.style.display = 'none';
+                panelRegister.style.display = 'block';
+            }
+        }
+
+        async function handleLoginSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const role = document.querySelector('input[name="login-role"]:checked').value;
+
+            showToast("Verifying credentials...", "info");
+
+            try {
+                const endpoint = role === 'admin' ? '/api/auth/login/admin' : '/api/auth/login/student';
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast(data.message, "success");
+                    setTimeout(() => {
+                        window.location.href = role === 'admin' ? 'admin.html' : 'dashboard.html';
+                    }, 800);
+                } else {
+                    showToast(data.message || "Invalid credentials.", "error");
+                }
+            } catch (err) {
+                console.error("Login failure:", err);
+                showToast("Connection failed to database server.", "error");
+            }
+        }
+
+        async function handleRegisterSubmit(event) {
+            event.preventDefault();
+            const full_name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const usn = document.getElementById('reg-roll').value;
+            const department = document.getElementById('reg-dept').value;
+            const password = document.getElementById('reg-password').value;
+
+            showToast("Registering account...", "info");
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ full_name, email, usn, department, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast(data.message, "success");
+                    document.getElementById('form-register').reset();
+                    setTimeout(() => {
+                        switchAuthTab('login');
+                        document.getElementById('login-email').value = email;
+                    }, 1200);
+                } else {
+                    showToast(data.message || "Registration failed.", "error");
+                }
+            } catch (err) {
+                console.error("Registration failure:", err);
+                showToast("Connection failed to database server.", "error");
+            }
+        }
+    </script>
+</body>
+</html>
