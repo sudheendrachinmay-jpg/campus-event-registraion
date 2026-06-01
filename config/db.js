@@ -4,11 +4,11 @@ const path = require('path');
 require('dotenv').config();
 
 // Default values if environment variables are not set
-const DB_HOST = process.env.DB_HOST || 'localhost';
-const DB_PORT = process.env.DB_PORT || 3306;
-const DB_USER = process.env.DB_USER || 'root';
-const DB_PASSWORD = process.env.DB_PASSWORD !== undefined ? process.env.DB_PASSWORD : '';
-const DB_NAME = process.env.DB_NAME || 'campus_events';
+const DB_HOST = (process.env.DB_HOST || 'localhost').trim();
+const DB_PORT = typeof process.env.DB_PORT === 'string' ? process.env.DB_PORT.trim() : (process.env.DB_PORT || 3306);
+const DB_USER = (process.env.DB_USER || 'root').trim();
+const DB_PASSWORD = process.env.DB_PASSWORD !== undefined ? String(process.env.DB_PASSWORD).trim() : '';
+const DB_NAME = (process.env.DB_NAME || 'campus_events').trim();
 
 let pool;
 
