@@ -37,6 +37,7 @@ app.use(session({
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/queries', require('./routes/queries'));
 
 // =======================================================
 // STATIC ASSET UTILITIES
